@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-class Twitter
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+
+public class Twitter
 {
 
     public static void Main()
