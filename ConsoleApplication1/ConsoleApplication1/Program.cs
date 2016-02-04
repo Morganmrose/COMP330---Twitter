@@ -32,7 +32,7 @@ namespace Twitter
 
             //Console.WriteLine("Tweet something!"); Can create your own string
             // string str = Console.ReadLine(); 
-            string str = "@ franky goes to #Hollywood.";
+            string str = "@franky goes to #Hollywood!1!";
             string strx = str.Replace(" ", "");
 
             foreach (char input in str)
