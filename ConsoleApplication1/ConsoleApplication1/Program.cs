@@ -1,70 +1,94 @@
 ﻿using System;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 
-public class Twitter
+namespace Twitter
 {
 
-    public static void Main()
+    public class Twitter
     {
-        
-        Console.WriteLine("Tweet something!\n");
-        string str = Console.ReadLine();
-        int length = str.Length;
-        string strx = str.Replace(" ", "");
-        
-        int Uppercase_count = 0;
-        int Lowercase_count = 0;
-        int mentions = 0;
-        int special_char=0;
-        int digitsCount = str.Count(c => char.IsDigit(c));
-    
+        private string m_tweet;
 
-        
-        foreach (char input in str)
+        private double uppercase = 0;
+        private double m_length = 0;
+
+        private Twitter()
         {
-            if (input == '@') { mentions++; }
-            else if (input =='!'|| input =='?'||input =='"'||input =='#'||input =='$'||input =='%'||input =='^'||input =='&'||input =='*'||
-                input =='-'||input =='+'||input =='='||input =='_'||input =='['||input ==']'||input =='('||input ==')'|| input ==';'||
-                    input ==':'||input =='/'||input ==','||input =='>'||input =='<')
+        }
+
+        public Twitter(string tweet)
+        {
+            m_tweet = tweet;
+
+        }
+
+        public string Tweet
+        {
+            get { return m_tweet; }
+        }
+
+        public double Length
+        {
+            get { return m_length; }
+        }
+
+
+        public static void Main()
+        {
+            int Uppercase_count = 0;
+            int Lowercase_count = 0;
+            int mentions = 0;
+            int special_char = 0;
+
+
+            Console.WriteLine("Tweet something!");
+            string str = Console.ReadLine();
+            Twitter ba = new Twitter(str);
+            string strx = str.Replace(" ", "");
+
+            foreach (char input in str)
+            {
+                if (input == '@') { mentions++; }
+                else if (input == '!' || input == '?' || input == '"' || input == '#' || input == '$' || input == '%' || input == '^' || input == '&' || input == '*' ||
+                    input == '-' || input == '+' || input == '=' || input == '_' || input == '[' || input == ']' || input == '(' || input == ')' || input == ';' ||
+                        input == ':' || input == '/' || input == ',' || input == '>' || input == '<')
                 //repetitive, but having problems implementing a regex
-            {
-                special_char++;
+                {
+                    special_char++;
+                }
+
+                else if (Char.IsUpper(input))
+                {
+                    Uppercase_count++;
+                }
+                else if (Char.IsLower(input))
+                {
+                    Lowercase_count++;
+                }
+
             }
-          
-            else if (Char.IsUpper(input))
+
+            if (str.Length <= 140)
             {
-                Uppercase_count++;
+                int digitsCount = str.Count(c => char.IsDigit(c));
+                Console.WriteLine("The length of the full tweet: {0}", str.Length);
+                Console.WriteLine("The number of characters without blank spaces: {0}", strx.Length);
+                Console.WriteLine("The number of uppercase letters: {0}", Uppercase_count);
+                Console.WriteLine("The number of lowercase letters: {0}", Lowercase_count);
+                Console.WriteLine("Number count: {0}", digitsCount);
+                Console.WriteLine("The number of special characters: {0}", special_char);
+                Console.WriteLine("The number of mentions: {0}", mentions);
             }
-            else if (Char.IsLower(input))
+            else
             {
-                Lowercase_count++;
+                Console.WriteLine("Your tweet exceeds the maxium number of characters (140). Try again.");
+                Main();
             }
 
+
+
+            Console.ReadLine();
         }
-
-        if (str.Length <= 140)
-        {
-
-            Console.WriteLine("The length of the full tweet: {0}", str.Length);
-            Console.WriteLine("The number of characters without blank spaces: {0}", strx.Length);
-            Console.WriteLine("The number of uppercase letters: {0}", Uppercase_count);
-            Console.WriteLine("The number of lowercase letters: {0}", Lowercase_count);
-            Console.WriteLine("Number count: {0}", digitsCount);
-            Console.WriteLine("The number of special characters: {0}", special_char);
-            Console.WriteLine("The number of mentions: {0}", mentions);
-        }
-        else
-        {
-            Console.WriteLine("Your tweet exceeds the maxium number of characters (140). Try again.");
-            Main();
-        }
-
-
-        
-        Console.ReadLine();
     }
 }
