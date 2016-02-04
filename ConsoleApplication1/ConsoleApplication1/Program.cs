@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 class Twitter
 {
+
     public static void Main()
     {
+        
         Console.WriteLine("Tweet something!\n");
         string str = Console.ReadLine();
         int length = str.Length;
@@ -12,11 +15,22 @@ class Twitter
         int Uppercase_count = 0;
         int Lowercase_count = 0;
         int mentions = 0;
+        int special_char=0;
         int digitsCount = str.Count(c => char.IsDigit(c));
+    
 
+        
         foreach (char input in str)
         {
             if (input == '@') { mentions++; }
+            else if (input =='!'|| input =='?'||input =='"'||input =='#'||input =='$'||input =='%'||input =='^'||input =='&'||input =='*'||
+                input =='-'||input =='+'||input =='='||input =='_'||input =='['||input ==']'||input =='('||input ==')'|| input ==';'||
+                    input ==':'||input =='/'||input ==','||input =='>'||input =='<')
+                //repetitive, but having problems implementing a regex
+            {
+                special_char++;
+            }
+          
             else if (Char.IsUpper(input))
             {
                 Uppercase_count++;
@@ -25,7 +39,6 @@ class Twitter
             {
                 Lowercase_count++;
             }
- 
 
         }
 
@@ -37,6 +50,7 @@ class Twitter
             Console.WriteLine("The number of uppercase letters: {0}", Uppercase_count);
             Console.WriteLine("The number of lowercase letters: {0}", Lowercase_count);
             Console.WriteLine("Number count: {0}", digitsCount);
+            Console.WriteLine("The number of special characters: {0}", special_char);
             Console.WriteLine("The number of mentions: {0}", mentions);
         }
         else
